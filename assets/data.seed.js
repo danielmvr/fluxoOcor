@@ -1,6 +1,6 @@
 // Dados-semente: Frota.XLS + mapa (KMZ). gerentes = Responsavel Apoio {nome,telefone}; linhas = seletor de Linha.
 window.SEED = {
- "cadastrosVersao": 7,
+ "cadastrosVersao": 8,
  "geradoEm": "2026-06-15",
  "fonteFrota": "Frota.XLS",
  "frota": [
@@ -4513,6 +4513,336 @@ window.SEED = {
    "uf": "RJ",
    "ano": 2020,
    "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "13610.R",
+   "modelo": "DD DESATIV",
+   "capacidade": 0,
+   "regional": "REX",
+   "nop": "REX",
+   "placa": "TZZ0F06",
+   "uf": "MG",
+   "ano": "",
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "15602.F",
+   "modelo": "DD43 UTIL",
+   "capacidade": 43,
+   "regional": "RAF",
+   "nop": "RAF",
+   "placa": "UAC5H56",
+   "uf": "MG",
+   "ano": 2026,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "13604.R",
+   "modelo": "DD56.REX",
+   "capacidade": 56,
+   "regional": "REX",
+   "nop": "REX",
+   "placa": "TZZ3I17",
+   "uf": "",
+   "ano": "",
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "13605.R",
+   "modelo": "DD56.REX",
+   "capacidade": 56,
+   "regional": "REX",
+   "nop": "REX",
+   "placa": "UAC5H70",
+   "uf": "MG",
+   "ano": "",
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "13606.R",
+   "modelo": "DD56.REX",
+   "capacidade": 56,
+   "regional": "REX",
+   "nop": "REX",
+   "placa": "TZZ0F63",
+   "uf": "",
+   "ano": "",
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "13607.R",
+   "modelo": "DD56.REX",
+   "capacidade": 56,
+   "regional": "REX",
+   "nop": "REX",
+   "placa": "TZZ0F65",
+   "uf": "",
+   "ano": "",
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "13608.R",
+   "modelo": "DD56.REX",
+   "capacidade": 56,
+   "regional": "REX",
+   "nop": "REX",
+   "placa": "TZZ0E99",
+   "uf": "",
+   "ano": "",
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "13609.R",
+   "modelo": "DD56.REX",
+   "capacidade": 56,
+   "regional": "REX",
+   "nop": "REX",
+   "placa": "TZZ0F33",
+   "uf": "",
+   "ano": "",
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "13611.R",
+   "modelo": "DD56.REX",
+   "capacidade": 56,
+   "regional": "REX",
+   "nop": "REX",
+   "placa": "TZZ0F19",
+   "uf": "",
+   "ano": "",
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "13413.S",
+   "modelo": "DD56.SAMP",
+   "capacidade": 56,
+   "regional": "UTIL",
+   "nop": "U.LIN",
+   "placa": "TCM2B13",
+   "uf": "MG",
+   "ano": 2024,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "13613.U",
+   "modelo": "DD56.U BHZ",
+   "capacidade": 56,
+   "regional": "UTIL",
+   "nop": "U.LIN",
+   "placa": "TZV0E04",
+   "uf": "MG",
+   "ano": 2026,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "13616.U",
+   "modelo": "DD56.U BHZ",
+   "capacidade": 56,
+   "regional": "UTIL",
+   "nop": "U.LIN",
+   "placa": "TZV0G22",
+   "uf": "MG",
+   "ano": 2026,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "13617.U",
+   "modelo": "DD56.U BHZ",
+   "capacidade": 56,
+   "regional": "UTIL",
+   "nop": "U.LIN",
+   "placa": "TZV8F02",
+   "uf": "MG",
+   "ano": 2026,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "13612.U",
+   "modelo": "DD56.U BSB",
+   "capacidade": 56,
+   "regional": "UTIL",
+   "nop": "U.LIN",
+   "placa": "TZV0F47",
+   "uf": "MG",
+   "ano": 2026,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "13614.U",
+   "modelo": "DD56.U BSB",
+   "capacidade": 56,
+   "regional": "UTIL",
+   "nop": "U.LIN",
+   "placa": "TZV0G79",
+   "uf": "MG",
+   "ano": 2026,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "13615.U",
+   "modelo": "DD56.U BSB",
+   "capacidade": 56,
+   "regional": "UTIL",
+   "nop": "U.LIN",
+   "placa": "TZV0E92",
+   "uf": "MG",
+   "ano": 2026,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "19006.R",
+   "modelo": "DD57.REX",
+   "capacidade": 57,
+   "regional": "REX",
+   "nop": "REX",
+   "placa": "RFW9E31",
+   "uf": "BA",
+   "ano": 2019,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "13601.F",
+   "modelo": "FREQ.MIN.",
+   "capacidade": 60,
+   "regional": "RAF",
+   "nop": "RAF",
+   "placa": "TMZ1G21",
+   "uf": "BA",
+   "ano": 2026,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "13602.F",
+   "modelo": "FREQ.MIN.",
+   "capacidade": 60,
+   "regional": "RAF",
+   "nop": "RAF",
+   "placa": "TMZ9E78",
+   "uf": "BA",
+   "ano": 2026,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "13603.F",
+   "modelo": "FREQ.MIN.",
+   "capacidade": 60,
+   "regional": "RAF",
+   "nop": "RAF",
+   "placa": "TMZ4C62",
+   "uf": "BA",
+   "ano": 2026,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "15601.F",
+   "modelo": "LT43 SSA",
+   "capacidade": 43,
+   "regional": "RAF",
+   "nop": "RAF",
+   "placa": "UAC5H91",
+   "uf": "",
+   "ano": 2026,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "1857.F",
+   "modelo": "RSD ANTT",
+   "capacidade": 46,
+   "regional": "RAF",
+   "nop": "RAF",
+   "placa": "QOJ8I54",
+   "uf": "MG",
+   "ano": 2018,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "9608.F",
+   "modelo": "RSD ANTT",
+   "capacidade": 46,
+   "regional": "RAF",
+   "nop": "RAF",
+   "placa": "TNA6F99",
+   "uf": "BA",
+   "ano": 2026,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "9609.F",
+   "modelo": "RSD ANTT",
+   "capacidade": 46,
+   "regional": "RAF",
+   "nop": "RAF",
+   "placa": "TNA1D89",
+   "uf": "BA",
+   "ano": 2026,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "9610.F",
+   "modelo": "RSD ANTT",
+   "capacidade": 46,
+   "regional": "RAF",
+   "nop": "RAF",
+   "placa": "TNA0I56",
+   "uf": "BA",
+   "ano": 2026,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "9611.F",
+   "modelo": "RSD ANTT",
+   "capacidade": 46,
+   "regional": "RAF",
+   "nop": "RAF",
+   "placa": "TNA4G74",
+   "uf": "BA",
+   "ano": 2026,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "9706.F",
+   "modelo": "RSD ANTT",
+   "capacidade": 46,
+   "regional": "RAF",
+   "nop": "RAF",
+   "placa": "LRC4A90",
+   "uf": "",
+   "ano": 2017,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "9707.F",
+   "modelo": "RSD ANTT",
+   "capacidade": 46,
+   "regional": "RAF",
+   "nop": "RAF",
+   "placa": "KPU9A38",
+   "uf": "",
+   "ano": 2017,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "13416.F",
+   "modelo": "SSA/COR/IR",
+   "capacidade": 56,
+   "regional": "RAF",
+   "nop": "RAF",
+   "placa": "TCS5J88",
+   "uf": "MG",
+   "ano": 2024,
+   "daEmpresa": "Sim"
+  },
+  {
+   "veiculo": "13417.F",
+   "modelo": "SSA/COR/IR",
+   "capacidade": 56,
+   "regional": "RAF",
+   "nop": "RAF",
+   "placa": "TCS5J92",
+   "uf": "MG",
+   "ano": 2024,
+   "daEmpresa": "Sim"
   }
  ],
  "regionais": [
@@ -4737,7 +5067,7 @@ window.SEED = {
   {
    "nome": "Josias",
    "telefone": ""
-  }  
+  }
  ],
  "localidades": [
   {
