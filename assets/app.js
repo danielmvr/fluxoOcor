@@ -32,6 +32,13 @@
     var p = ymd.split("-"); return p.length === 3 ? p[2] + "/" + p[1] + "/" + p[0].slice(2) : ymd;
   }
   function dataHoje() { var d = new Date(); return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+  // Linha do tempo com a "Hora da quebra" incluida (a partir do inicioEm), ordenada por horario.
+  function linhaDoTempo(o) {
+    var evs = (o.eventos || []).slice();
+    if (o.horaQuebra && o.inicioEm) evs.push({ ts: o.inicioEm, tipo: "quebra", texto: "Hora da quebra" });
+    evs.sort(function (a, b) { return new Date(a.ts) - new Date(b.ts); });
+    return evs;
+  }
   function preencherDataHoje() { var el = $("#f-dataOcorrencia"); if (el) el.value = dataHoje(); var td = $("#f-terminoData"); if (td) td.value = dataHoje(); }
   function copiar(texto, btn) {
     function ok() { if (btn) { var t = btn.textContent; btn.textContent = "Copiado!"; setTimeout(function () { btn.textContent = t; }, 1600); } }
@@ -424,7 +431,7 @@
     if (o.eventos && o.eventos.length) {
       L.push(DIV);
       L.push("🕒 *Linha do tempo*");
-      o.eventos.forEach(function (e) { L.push("• " + fmtClock(e.ts) + " — " + (e.texto || "")); });
+      linhaDoTempo(o).forEach(function (e) { L.push("• " + fmtClock(e.ts) + " — " + (e.texto || "")); });
     }
     return L.join("\n");
   }
@@ -460,7 +467,7 @@
       return '<button class="btn sm" data-action="m-status" data-id="' + o.id + '" data-status="' + k + '" style="background:' + Store.STATUS[k].cor + '">' + esc(Store.STATUS[k].label) + '</button>';
     }).join(" ");
 
-    var timeline = (o.eventos || []).slice().reverse().map(function (e) {
+    var timeline = linhaDoTempo(o).reverse().map(function (e) {
       return '<li><span class="t">' + fmtClock(e.ts) + '</span><br>' + esc(e.texto) + '</li>';
     }).join("");
 
