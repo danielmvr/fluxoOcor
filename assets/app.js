@@ -32,10 +32,21 @@
     var p = ymd.split("-"); return p.length === 3 ? p[2] + "/" + p[1] + "/" + p[0].slice(2) : ymd;
   }
   function dataHoje() { var d = new Date(); return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
-  // Linha do tempo com a "Hora da quebra" incluida (a partir do inicioEm), ordenada por horario.
+  // Momento da quebra: calculado direto de Data da ocorrencia + Hora da quebra (fonte da verdade);
+  // cai para inicioEm se a data nao vier. Independe de inicioEm estar preenchido no objeto.
+  function quebraTs(o) {
+    if (!o || !o.horaQuebra) return null;
+    if (o.dataOcorrencia) {
+      var ms = Date.parse(o.dataOcorrencia + "T" + o.horaQuebra + ":00");
+      if (!isNaN(ms)) return new Date(ms).toISOString();
+    }
+    return o.inicioEm || null;
+  }
+  // Linha do tempo com a "Hora da quebra" incluida, ordenada por horario.
   function linhaDoTempo(o) {
     var evs = (o.eventos || []).slice();
-    if (o.horaQuebra && o.inicioEm) evs.push({ ts: o.inicioEm, tipo: "quebra", texto: "Hora da quebra" });
+    var q = quebraTs(o);
+    if (q) evs.push({ ts: q, tipo: "quebra", texto: "Hora da quebra" });
     evs.sort(function (a, b) { return new Date(a.ts) - new Date(b.ts); });
     return evs;
   }
