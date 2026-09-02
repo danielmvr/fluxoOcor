@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal E-Guaba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f6fa;
+    --bg-gradient: radial-gradient(1200px 600px at 80% -10%, rgba(37,99,235,.08), transparent 60%),
+                   radial-gradient(900px 500px at -10% 110%, rgba(14,165,164,.07), transparent 60%);
+    --surface: #ffffff;
+    --surface-2: #eef1f6;
+    --border: #e3e8f0;
+    --text: #0f172a;
+    --text-2: #55627a;
+    --text-3: #8a94a8;
+    --accent: #2563eb;
+    --accent-soft: rgba(37,99,235,.10);
+    --shadow: 0 1px 2px rgba(15,23,42,.04), 0 8px 24px rgba(15,23,42,.06);
+    --shadow-hover: 0 4px 12px rgba(15,23,42,.08), 0 16px 40px rgba(15,23,42,.12);
+    --online: #059669;
+    --online-soft: rgba(5,150,105,.10);
+    --local: #b45309;
+    --local-soft: rgba(180,83,9,.10);
+  }
+  [data-theme="dark"] {
+    --bg: #0b1020;
+    --bg-gradient: radial-gradient(1200px 600px at 80% -10%, rgba(59,130,246,.12), transparent 60%),
+                   radial-gradient(900px 500px at -10% 110%, rgba(20,184,166,.08), transparent 60%);
+    --surface: #121a30;
+    --surface-2: #1a2440;
+    --border: #232f4e;
+    --text: #eef2fa;
+    --text-2: #9fabc4;
+    --text-3: #67748f;
+    --accent: #60a5fa;
+    --accent-soft: rgba(96,165,250,.12);
+    --shadow: 0 1px 2px rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.35);
+    --shadow-hover: 0 4px 12px rgba(0,0,0,.35), 0 20px 48px rgba(0,0,0,.5);
+    --online: #34d399;
+    --online-soft: rgba(52,211,153,.12);
+    --local: #fbbf24;
+    --local-soft: rgba(251,191,36,.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    background-image: var(--bg-gradient);
+    color: var(--text);
+    min-height: 100vh;
+    transition: background .3s, color .3s;
+  }
+
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* Header */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: color-mix(in srgb, var(--bg) 75%, transparent);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 0;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-mark {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), #0ea5a4);
+    display: grid; place-items: center;
+    color: #fff; font-weight: 800; font-size: 17px;
+    letter-spacing: -.5px;
+    box-shadow: var(--shadow);
+  }
+  .brand-name { font-weight: 700; font-size: 17px; letter-spacing: -.3px; }
+  .brand-name span { color: var(--accent); }
+  .brand-sub { font-size: 11.5px; color: var(--text-3); margin-top: 1px; }
+
+  .theme-toggle {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 99px; padding: 8px 14px;
+    cursor: pointer; color: var(--text-2);
+    font-family: inherit; font-size: 13px; font-weight: 500;
+    transition: all .2s;
+  }
+  .theme-toggle:hover { color: var(--text); border-color: var(--accent); }
+  .theme-toggle svg { width: 16px; height: 16px; }
+
+  /* Hero */
+  .hero { padding: 64px 0 40px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 600; color: var(--accent);
+    background: var(--accent-soft);
+    padding: 6px 12px; border-radius: 99px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: clamp(30px, 5vw, 44px);
+    font-weight: 800; letter-spacing: -1.2px; line-height: 1.1;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p {
+    margin-top: 14px; max-width: 560px;
+    color: var(--text-2); font-size: 16px; line-height: 1.65;
+  }
+
+  /* Section label */
+  .section-label {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--text-3);
+    margin: 32px 0 20px;
+  }
+  .section-label::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+
+  /* Cards grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding-bottom: 24px;
+  }
+  .card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 26px;
+    display: flex; flex-direction: column; gap: 14px;
+    box-shadow: var(--shadow);
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+    text-decoration: none; color: inherit;
+  }
+  a.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--accent);
+  }
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; }
+  .card-icon {
+    width: 46px; height: 46px; border-radius: 12px;
+    display: grid; place-items: center;
+    font-size: 21px;
+    background: var(--accent-soft);
+  }
+  .card h3 { font-size: 17px; font-weight: 700; letter-spacing: -.3px; }
+  .card p { font-size: 13.5px; color: var(--text-2); line-height: 1.6; flex: 1; }
+  .card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 14px; border-top: 1px solid var(--border);
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11.5px; font-weight: 600;
+    padding: 5px 10px; border-radius: 99px;
+  }
+  .badge .dot { width: 7px; height: 7px; border-radius: 50%; }
+  .badge.online { color: var(--online); background: var(--online-soft); }
+  .badge.online .dot { background: var(--online); box-shadow: 0 0 0 3px var(--online-soft); }
+  .badge.local { color: var(--local); background: var(--local-soft); }
+  .badge.local .dot { background: var(--local); }
+  .card-host { font-size: 11.5px; color: var(--text-3); font-weight: 500; }
+  /* Contador dinâmico (canto superior direito do card) */
+  .metric-chip {
+    display: inline-flex; align-items: baseline; gap: 4px;
+    font-size: 11px; font-weight: 600;
+    padding: 4px 9px; border-radius: 99px;
+    background: var(--surface-2); color: var(--text-3);
+    white-space: nowrap;
+    transition: background .3s, color .3s;
+  }
+  .metric-chip .num {
+    font-size: 13px; font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .metric-chip.alert { background: var(--local-soft); color: var(--local); }
+  .metric-chip.zero { background: var(--online-soft); color: var(--online); }
+  .card.disabled { cursor: default; }
+  .card.disabled:hover { transform: none; }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 0 36px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px;
+    color: var(--text-3); font-size: 12.5px;
+  }
+
+  @media (max-width: 560px) {
+    .hero { padding: 44px 0 28px; }
+    .brand-sub { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <div class="brand">
+      <div class="brand-mark">eG</div>
+      <div>
+        <div class="brand-name">E-<span>Guaba</span></div>
+        <div class="brand-sub">Portal de Ferramentas · Grupo Guanabara</div>
+      </div>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+      <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></svg>
+      <span id="themeLabel">Escuro</span>
+    </button>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <div class="hero-badge">● Central de operações</div>
+    <h1>Todas as ferramentas,<br>em <em>um só lugar</em>.</h1>
+    <p>Portal centralizador das aplicações operacionais do grupo. Acesse os sistemas de ocorrências, monitoramento e controle de frota a partir de um único ponto.</p>
+  </section>
+
+  <div class="section-label">Ferramentas</div>
+  <div class="grid" id="toolsGrid"></div>
+</main>
+
+<footer class="container">
+  <span>Portal E-Guaba · Grupo Guanabara</span>
+  <span id="toolCount"></span>
+</footer>
+
+<script>
+  // ── Ferramentas ──────────────────────────────────────────────
+  // Para adicionar uma nova ferramenta ao portal, basta incluir
+  // um novo objeto neste array. Nada mais precisa ser alterado.
+  const TOOLS = [
+    {
+      name: "Fluxo de Ocorrências",
+      icon: "🚨",
+      description: "Controle de quebras e socorros da frota. Abertura, acompanhamento e histórico de ocorrências com cadastros de frota, linhas, localidades e pontos de apoio.",
+      url: "https://danielmvr.github.io/fluxoOcor/",
+      host: "github.io",
+      status: "online",
+      metric: { id: "m-ocorrencias", singular: "ativa", plural: "ativas" }
+    },
+    {
+      name: "Monitoramento Rodovias",
+      icon: "🛣️",
+      description: "Acompanhamento em tempo real das condições das rodovias nas linhas Guanabara: interdições, trânsito e ocorrências, com mapa e notícias atualizadas.",
+      url: "https://newsrodo.streamlit.app/",
+      host: "streamlit.app",
+      status: "online",
+      metric: { id: "m-interdicoes", singular: "interdição", plural: "interdições" }
+    },
+    {
+      name: "Acompanhamento Atrasos",
+      icon: "⏱️",
+      description: "Painel de acompanhamento de atrasos e anomalias das viagens, aberto diretamente na tela de atrasos para análise imediata da operação.",
+      url: "https://newsrodo.streamlit.app/?view=atrasos",
+      host: "streamlit.app",
+      status: "online",
+      metric: { id: "m-atrasos", singular: "atraso", plural: "atrasos" }
+    },
+    {
+      name: "My Maps · Apoio CCO",
+      icon: "🗺️",
+      description: "Mapa de apoio da Coordenação do CCO no Google My Maps, com localidades, pontos de apoio e referências geográficas para suporte às operações.",
+      url: "https://www.google.com/maps/d/u/2/edit?mid=1V52rGfwJb4mUabpknkHZhwzQWX01A74&usp=sharing",
+      host: "google.com/maps",
+      status: "online"
+    }
+  ];
+
+  const grid = document.getElementById("toolsGrid");
+
+  grid.innerHTML = TOOLS.map(t => {
+    const badge = t.status === "online"
+      ? '<span class="badge online"><span class="dot"></span>Online</span>'
+      : '<span class="badge local"><span class="dot"></span>Ferramenta local</span>';
+    const chip = t.metric
+      ? `<span class="metric-chip" id="${t.metric.id}" title="Carregando..."><span class="num">–</span></span>`
+      : "";
+    const inner = `
+      <div class="card-top"><div class="card-icon">${t.icon}</div>${chip}</div>
+      <h3>${t.name}</h3>
+      <p>${t.description}</p>
+      <div class="card-footer">${badge}<span class="card-host">${t.host}</span></div>`;
+    return t.url
+      ? `<a class="card" href="${t.url}" target="_blank" rel="noopener">${inner}</a>`
+      : `<div class="card disabled">${inner}</div>`;
+  }).join("");
+
+  document.getElementById("toolCount").textContent =
+    TOOLS.length + " ferramenta" + (TOOLS.length !== 1 ? "s" : "") + " integradas";
+
+  // ── Tema claro/escuro ────────────────────────────────────────
+  const ICONS = {
+    moon: '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',
+    sun: '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>'
+  };
+  const root = document.documentElement;
+  const icon = document.getElementById("themeIcon");
+  const label = document.getElementById("themeLabel");
+
+  function applyTheme(theme) {
+    root.setAttribute("data-theme", theme);
+    icon.innerHTML = theme === "light" ? ICONS.moon : ICONS.sun;
+    label.textContent = theme === "light" ? "Escuro" : "Claro";
+    try { localStorage.setItem("eguaba-theme", theme); } catch (e) {}
+  }
+
+  let saved = null;
+  try { saved = localStorage.getItem("eguaba-theme"); } catch (e) {}
+  applyTheme(saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+
+  document.getElementById("themeToggle").addEventListener("click", () => {
+    applyTheme(root.getAttribute("data-theme") === "light" ? "dark" : "light");
+  });
+
+  // ── Contadores em tempo real ─────────────────────────────────
+  // Fluxo de Ocorrências: consulta direta ao banco online (Supabase),
+  // a mesma fonte que o app usa no modo compartilhado.
+  // Rodovias e Atrasos: iframe oculto em ?view=resumo (postMessage).
+  const SUPABASE = {
+    url: "https://kmjtuoapmfgoxvtulhtr.supabase.co",
+    anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImttanR1b2FwbWZnb3h2dHVsaHRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1MzMyMzMsImV4cCI6MjA5NzEwOTIzM30.RpFObETVrakfmCSWXulJ9OWz4TWlm4ESQ7HKaa9kbPM"
+  };
+  const FEEDS = [
+    { id: "feed-rodo", src: "https://newsrodo.streamlit.app/?view=resumo&embed=true" }
+  ];
+  const ORIGENS_OK = [".streamlit.app"];
+  const REFRESH_MIN = 5;      // recarrega os iframes a cada 5 minutos
+  const POLL_OCOR_SEG = 30;   // consulta as ocorrências a cada 30 segundos
+
+  function setChip(id, valor, m) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (valor === null || valor === undefined) {
+      el.innerHTML = '<span class="num">–</span>';
+      el.className = "metric-chip";
+      el.title = "Dado indisponível no momento";
+      return;
+    }
+    const label = valor === 1 ? m.singular : m.plural;
+    el.innerHTML = `<span class="num">${valor}</span> ${label}`;
+    el.className = "metric-chip " + (valor > 0 ? "alert" : "zero");
+    el.title = "Atualizado às " + new Date().toLocaleTimeString("pt-BR",
+      { hour: "2-digit", minute: "2-digit" });
+  }
+
+  const M = Object.fromEntries(TOOLS.filter(t => t.metric).map(t => [t.metric.id, t.metric]));
+
+  window.addEventListener("message", ev => {
+    const okOrigem = ORIGENS_OK.some(o =>
+      o.startsWith("https://") ? ev.origin === o : ev.origin.endsWith(o));
+    if (!okOrigem || !ev.data || ev.data.type !== "eguaba:resumo") return;
+    if (ev.data.app === "rodovias") {
+      setChip("m-interdicoes", ev.data.interdicoes, M["m-interdicoes"]);
+      setChip("m-atrasos", ev.data.atrasos, M["m-atrasos"]);
+    }
+  });
+
+  // Ocorrências ativas: contagem online (status diferente de "finalizada").
+  async function buscarOcorrencias() {
+    try {
+      const r = await fetch(
+        SUPABASE.url + "/rest/v1/ocorrencias?select=id&status=neq.finalizada",
+        { headers: {
+            apikey: SUPABASE.anonKey,
+            Authorization: "Bearer " + SUPABASE.anonKey,
+            Prefer: "count=exact"
+        } });
+      if (!r.ok) throw new Error(r.status);
+      const faixa = r.headers.get("content-range");   // ex.: "0-0/1"
+      const total = faixa && faixa.includes("/")
+        ? parseInt(faixa.split("/")[1], 10)
+        : (await r.json()).length;
+      setChip("m-ocorrencias", Number.isFinite(total) ? total : null, M["m-ocorrencias"]);
+    } catch (e) {
+      setChip("m-ocorrencias", null, M["m-ocorrencias"]);
+    }
+  }
+  buscarOcorrencias();
+  setInterval(buscarOcorrencias, POLL_OCOR_SEG * 1000);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) buscarOcorrencias();
+  });
+
+  function montarFeeds() {
+    for (const f of FEEDS) {
+      let ifr = document.getElementById(f.id);
+      if (!ifr) {
+        ifr = document.createElement("iframe");
+        ifr.id = f.id;
+        ifr.setAttribute("aria-hidden", "true");
+        ifr.setAttribute("tabindex", "-1");
+        ifr.style.cssText =
+          "position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;border:0;left:-9999px;top:0;";
+        document.body.appendChild(ifr);
+      }
+      ifr.src = f.src + (f.src.includes("?") ? "&" : "?") + "_ts=" + Date.now();
+    }
+  }
+  montarFeeds();
+  setInterval(montarFeeds, REFRESH_MIN * 60 * 1000);
+</script>
+</body>
+</html>
