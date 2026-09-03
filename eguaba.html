@@ -262,7 +262,8 @@
       url: "https://checkmalha.streamlit.app",
       host: "streamlit.app",
       status: "online",
-      tag: "Em validação"
+      tag: "Em validação",
+      metric: { id: "m-anomalias", singular: "anomalia", plural: "anomalias" }
     },
     {
       name: "Fluxo de Ocorrências",
@@ -359,11 +360,17 @@
     anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImttanR1b2FwbWZnb3h2dHVsaHRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1MzMyMzMsImV4cCI6MjA5NzEwOTIzM30.RpFObETVrakfmCSWXulJ9OWz4TWlm4ESQ7HKaa9kbPM"
   };
   const FEEDS = [
-    { id: "feed-rodo", src: "https://newsrodo.streamlit.app/?view=resumo&embed=true" }
+    { id: "feed-rodo", src: "https://newsrodo.streamlit.app/?view=resumo&embed=true" },
+    { id: "feed-malha", src: "https://checkmalha.streamlit.app/?view=resumo&embed=true" }
   ];
-  const ORIGENS_OK = [".streamlit.app"];
   const REFRESH_MIN = 5;      // recarrega os iframes a cada 5 minutos
   const POLL_OCOR_SEG = 30;   // consulta as ocorrências a cada 30 segundos
+
+  // O Streamlit entrega o postMessage a partir de um quadro sandbox, cuja origem
+  // é "null". Então a mensagem é validada por um token sorteado a cada carga da
+  // página e enviado na URL do quadro: só responde quem o portal chamou.
+  const TOKEN = (crypto.randomUUID && crypto.randomUUID()) ||
+                Math.random().toString(36).slice(2) + Date.now().toString(36);
 
   function setChip(id, valor, m) {
     const el = document.getElementById(id);
@@ -384,12 +391,13 @@
   const M = Object.fromEntries(TOOLS.filter(t => t.metric).map(t => [t.metric.id, t.metric]));
 
   window.addEventListener("message", ev => {
-    const okOrigem = ORIGENS_OK.some(o =>
-      o.startsWith("https://") ? ev.origin === o : ev.origin.endsWith(o));
-    if (!okOrigem || !ev.data || ev.data.type !== "eguaba:resumo") return;
-    if (ev.data.app === "rodovias") {
-      setChip("m-interdicoes", ev.data.interdicoes, M["m-interdicoes"]);
-      setChip("m-atrasos", ev.data.atrasos, M["m-atrasos"]);
+    const d = ev.data;
+    if (!d || d.type !== "eguaba:resumo" || d.token !== TOKEN) return;
+    if (d.app === "rodovias") {
+      setChip("m-interdicoes", d.interdicoes, M["m-interdicoes"]);
+      setChip("m-atrasos", d.atrasos, M["m-atrasos"]);
+    } else if (d.app === "checkmalha") {
+      setChip("m-anomalias", d.anomalias, M["m-anomalias"]);
     }
   });
 
@@ -431,7 +439,8 @@
           "position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;border:0;left:-9999px;top:0;";
         document.body.appendChild(ifr);
       }
-      ifr.src = f.src + (f.src.includes("?") ? "&" : "?") + "_ts=" + Date.now();
+      ifr.src = f.src + (f.src.includes("?") ? "&" : "?") +
+                "token=" + encodeURIComponent(TOKEN) + "&_ts=" + Date.now();
     }
   }
   montarFeeds();
