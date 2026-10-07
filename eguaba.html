@@ -182,6 +182,8 @@
   .badge.online .dot { background: var(--online); box-shadow: 0 0 0 3px var(--online-soft); }
   .badge.local { color: var(--local); background: var(--local-soft); }
   .badge.local .dot { background: var(--local); }
+  .badge.intranet { color: var(--accent); background: var(--accent-soft); }
+  .badge.intranet .dot { background: var(--accent); }
   .card-host { font-size: 11.5px; color: var(--text-3); font-weight: 500; }
   /* Contador dinâmico (canto superior direito do card) */
   .metric-chip {
@@ -256,6 +258,15 @@
   // um novo objeto neste array. Nada mais precisa ser alterado.
   const TOOLS = [
     {
+      name: "Férias 3D",
+      icon: "🏖️",
+      description: "Programação de férias dos motoristas, base a base, em um mapa 3D.",
+      url: "http://192.168.9.118:8501",
+      host: "192.168.9.118:8501",
+      status: "intranet",
+      tag: "Em validação"
+    },
+    {
       name: "Check Malha Coordenação",
       icon: "🔎",
       description: "Validação da malha SIGLA: aponta anomalias de programação como viradas curtas e sobreposições, classificadas por criticidade, com relatório para download.",
@@ -305,9 +316,12 @@
   const grid = document.getElementById("toolsGrid");
 
   grid.innerHTML = TOOLS.map(t => {
-    const badge = t.status === "online"
-      ? '<span class="badge online"><span class="dot"></span>Online</span>'
-      : '<span class="badge local"><span class="dot"></span>Ferramenta local</span>';
+    const BADGES = {
+      online: '<span class="badge online"><span class="dot"></span>Online</span>',
+      intranet: '<span class="badge intranet"><span class="dot"></span>Rede interna</span>',
+      local: '<span class="badge local"><span class="dot"></span>Ferramenta local</span>'
+    };
+    const badge = BADGES[t.status] || BADGES.local;
     const chip = t.metric
       ? `<span class="metric-chip" id="${t.metric.id}" title="Carregando..."><span class="num">–</span></span>`
       : "";
