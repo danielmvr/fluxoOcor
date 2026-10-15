@@ -50,6 +50,20 @@
     evs.sort(function (a, b) { return new Date(a.ts) - new Date(b.ts); });
     return evs;
   }
+  // Quanto tempo a ocorrencia JA teria de duracao ao ser criada (a partir da Data+Hora da quebra).
+  function msDesdeQuebra(d) {
+    if (!d || !d.dataOcorrencia || !d.horaQuebra) return 0;
+    var ms = Date.parse(d.dataOcorrencia + "T" + d.horaQuebra + ":00");
+    return isNaN(ms) ? 0 : Math.max(0, Date.now() - ms);
+  }
+  function avisoDisparo(ms, d) {
+    var h = Math.floor(ms / 3600000), m = Math.floor((ms % 3600000) / 60000);
+    var nivel = ms >= 10800000 ? "3 horas" : (ms >= 9000000 ? "2h30 (diretor)" : "1h30 (90 min)");
+    return "ATENCAO: esta ocorrencia ja esta com " + h + "h" + pad(m) + " de duracao.\n" +
+      "Data/Hora da quebra informada: " + fmtDateBR(d.dataOcorrencia) + " " + (d.horaQuebra || "--:--") + "\n\n" +
+      "Ao criar, ela JA VAI DISPARAR alerta automatico no WhatsApp (nivel " + nivel + ").\n\n" +
+      "Confira se a DATA e a HORA da quebra estao corretas.\n\nCriar assim mesmo?";
+  }
   function preencherDataHoje() { var el = $("#f-dataOcorrencia"); if (el) el.value = dataHoje(); var td = $("#f-terminoData"); if (td) td.value = dataHoje(); }
   function copiar(texto, btn) {
     function ok() { if (btn) { var t = btn.textContent; btn.textContent = "Copiado!"; setTimeout(function () { btn.textContent = t; }, 1600); } }
@@ -686,7 +700,12 @@
       e.preventDefault();
       var d = lerForm();
       if (!d.carro) { alert("Informe o carro."); return; }
-      if (d.id) { Store.atualizar(d.id, d); } else { delete d.id; var novo = Store.criar(d); enviarNaAbertura(novo); }
+      if (d.id) { Store.atualizar(d.id, d); }
+      else {
+        var msQ = msDesdeQuebra(d); // duracao que a ocorrencia JA teria ao ser criada
+        if (msQ >= 5400000 && !confirm(avisoDisparo(msQ, d))) return; // cancelou -> nao cria, mantem o formulario p/ corrigir data/hora
+        delete d.id; var novo = Store.criar(d); enviarNaAbertura(novo);
+      }
       e.target.reset(); preencherDataHoje(); $("#f-termino").disabled = true; $("#f-terminoData").disabled = true; $("#f-id").value = ""; $("#veicInfo").textContent = ""; $("#cancelarEdicao").style.display = "none";
       showView("painel");
     });
