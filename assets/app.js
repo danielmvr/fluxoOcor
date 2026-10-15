@@ -108,6 +108,21 @@
     if (window.MODO === "remoto" && Store.enviarFila) return Store.enviarFila(chave, mensagem, destinos);
     return postPonte(destinos, mensagem, chave);
   }
+  // Confirma na ocorrencia que o WhatsApp saiu, a partir da chave do envio (ex.: "<id>:abertura").
+  function confirmarPorChave(chave) {
+    if (!chave || !Store.confirmarWhats) return;
+    var p = String(chave).split(":");
+    Store.confirmarWhats(p[0], p[1]);
+  }
+  // Estado do indicador "Whats" no card (so quando o envio WhatsApp esta ligado).
+  function flagWhats(o) {
+    var cfg = window.WHATSAPP_CONFIG || {};
+    if (!cfg.ativo || !cfg.ponteUrl) return "";               // WhatsApp desligado -> sem indicador
+    if (o.whatsAberturaEm) return '<div class="whats-flag ok">Whats enviado</div>';
+    var idade = Date.now() - new Date(o.abertaEm).getTime();
+    if (idade < 120000) return '<div class="whats-flag pend">Whats enviando…</div>'; // ~2 min de tolerancia
+    return '<div class="whats-flag err">Whats NÃO enviado</div>';
+  }
   // ---- Consumidor da fila: roda SOMENTE na maquina que tem a ponte (PonteWhats) ----
   var EH_PONTE = false, drenandoFila = false, backlogConsumido = false;
   function urlPonteBase() { var cfg = window.WHATSAPP_CONFIG || {}; return (cfg.ponteUrl || "").replace(/enviar\/?$/, ""); }
@@ -134,8 +149,13 @@
           Store.claimEnvio(row.id).then(function (c) {
             if (!(c && c.data && c.data.length)) { proximo(i + 1); return; } // outra aba ja pegou esta linha
             postPonte(row.destinos, row.mensagem, row.chave).then(
-              function () { proximo(i + 1); },                                  // enviado
-              function () { Store.liberarEnvio(row.id).then(function () { proximo(i + 1); }, function () { proximo(i + 1); }); } // falhou -> libera p/ retry
+              function (r) {                                                    // ponte respondeu (HTTP ok)
+                (r && typeof r.json === "function" ? r.json() : Promise.resolve({ ok: true })).then(function (resp) {
+                  if (resp && (resp.ok || resp.ignorado)) confirmarPorChave(row.chave); // saiu de verdade -> marca a ocorrencia
+                  proximo(i + 1);
+                }, function () { confirmarPorChave(row.chave); proximo(i + 1); });
+              },
+              function () { Store.liberarEnvio(row.id).then(function () { proximo(i + 1); }, function () { proximo(i + 1); }); } // ponte inacessivel -> libera p/ retry
             );
           }, function () { proximo(i + 1); });
         })(0);
@@ -291,6 +311,7 @@
       '<div class="card' + (cls === "extremo" ? " extremo" : "") + '" data-id="' + o.id + '">' +
         '<div class="topbar" style="background:' + s.cor + '"></div>' +
         '<div class="body">' +
+          flagWhats(o) +
           '<div class="card-head">' + busSVG(emp.cor, tipo) +
             '<div class="card-head-txt">' +
               '<p class="carro"><span class="cod">' + esc(o.carro || "?") + '</span>' + (o.carroSegue ? '<span class="segue">&rarr; ' + esc(o.carroSegue) + '</span>' : '') + '</p>' +
@@ -501,10 +522,18 @@
     var secHTML = o.socorroEm
       ? '<p class="row" style="text-align:center;color:#9aa;font-size:13px;margin-top:-4px">Duração SOS Mecânico: <b class="dur-sec" data-aberta="' + baseMs + '"' + (o.finalizadaEm ? ' data-fim="' + new Date(o.finalizadaEm).getTime() + '"' : '') + '>' + fmtDur(durSecMs == null ? 0 : durSecMs) + '</b></p>'
       : '';
+    var waCfg = window.WHATSAPP_CONFIG || {};
+    var waInfo = "";
+    if (waCfg.ativo && waCfg.ponteUrl) {
+      var waAb = o.whatsAberturaEm ? ("enviado " + fmtClock(o.whatsAberturaEm)) : "não enviado";
+      var waFim = o.finalizadaEm ? (o.whatsFimEm ? ("enviado " + fmtClock(o.whatsFimEm)) : "não enviado") : "—";
+      waInfo = '<p class="row" style="text-align:center;font-size:12px;color:#555"><b>WhatsApp</b> &mdash; abertura: ' + waAb + ' &middot; finalização: ' + waFim + '</p>';
+    }
     $("#m-body").innerHTML =
       '<div class="crono ' + cronoClasse(o) + '" data-aberta="' + baseMs + '"' + (cronoFreezeMs(o) ? ' data-fim="' + cronoFreezeMs(o) + '"' : '') + '>' + fmtDur(Store.duracaoMs(o)) + '</div>' +
       secHTML +
       '<p class="row" style="text-align:center;color:#888;font-size:12px">Quebra: ' + (o.horaQuebra ? (fmtDateBR(o.dataOcorrencia) + " " + o.horaQuebra) : fmtClock(o.abertaEm)) + (o.terminoSocorro ? " | Termino: " + (o.terminoData ? fmtDateBR(o.terminoData) + " " : "") + o.terminoSocorro : "") + (o.finalizadaEm ? " | Finalizada: " + fmtClock(o.finalizadaEm) : "") + '</p>' +
+      waInfo +
       info +
       '<label>Mudar status</label><div style="display:flex;gap:6px;flex-wrap:wrap">' + stBtns + '</div>' +
       '<label>Registrar medida / atualizacao</label>' +

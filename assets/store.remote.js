@@ -39,7 +39,8 @@
   }
   function rowToObj(row) {
     var o = { id: row.id, status: row.status, abertaEm: row.aberta_em, finalizadaEm: row.finalizada_em,
-      duracaoMs: row.duracao_ms, inicioEm: row.inicio_em, socorroEm: row.socorro_em, eventos: row.eventos || [] };
+      duracaoMs: row.duracao_ms, inicioEm: row.inicio_em, socorroEm: row.socorro_em, eventos: row.eventos || [],
+      whatsAberturaEm: row.whats_abertura_em || null, whatsFimEm: row.whats_fim_em || null };
     SIMPLES.forEach(function (k) { o[k] = row[toSnake(k)]; });
     return o;
   }
@@ -227,6 +228,18 @@
       claimEnvio: function (id) { return client.from("envios").update({ enviado_em: nowISO() }).eq("id", id).is("enviado_em", null).select(); },
       liberarEnvio: function (id) { return client.from("envios").update({ enviado_em: null }).eq("id", id); },
       consumirBacklog: function () { return client.from("envios").update({ enviado_em: nowISO() }).is("enviado_em", null); },
+
+      // Confirma (marca a ocorrencia) que o WhatsApp realmente saiu. Chamado pela maquina da ponte
+      // quando a ponte respondeu ok. Update direcionado numa coluna (nao sobrescreve o resto) e
+      // idempotente (so marca se ainda estava vazio). tipo: abertura/90/150/3h -> abertura; fim -> fim.
+      confirmarWhats: function (id, tipo) {
+        if (!id) return;
+        if (tipo === "fim") {
+          client.from("ocorrencias").update({ whats_fim_em: nowISO() }).eq("id", id).is("whats_fim_em", null).then(function () {}, function () {});
+        } else if (tipo === "abertura" || tipo === "90" || tipo === "150" || tipo === "3h") {
+          client.from("ocorrencias").update({ whats_abertura_em: nowISO() }).eq("id", id).is("whats_abertura_em", null).then(function () {}, function () {});
+        }
+      },
 
       // Le a ocorrencia direto do banco (fonte da verdade) e atualiza o cache local.
       // Usado como "checagem dupla" antes de disparar alerta: evita alertar card ja finalizado em outra estacao.
