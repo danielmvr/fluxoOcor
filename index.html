@@ -6,11 +6,11 @@
   <title>Fluxo de Ocorrencias</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css?v=4.5">
+  <link rel="stylesheet" href="assets/styles.css?v=4.6">
 </head>
 <body>
   <header class="app-header">
-    <img src="logoGB.png?v=4.5" alt="Grupo Guanabara" class="app-logo">
+    <img src="logoGB.png?v=4.6" alt="Grupo Guanabara" class="app-logo">
     <h1 class="brand">FLUXO DE OCORRENCIAS<small>Controle de quebras &amp; socorros</small></h1>
     <nav class="nav">
       <button data-view="painel" class="active">Painel <span class="badge" id="badgeAtivas">0</span></button>
@@ -199,13 +199,12 @@
       <div id="sub-gerentes" class="subpanel" style="display:none">
         <div class="toolbar">
           <input type="text" id="ger-nome" placeholder="Nome do responsavel">
-          <input type="text" id="ger-tel" placeholder="Telefone (ex.: (21) 99999-9999)" style="max-width:260px">
           <button class="btn green sm" id="addGer">Salvar</button>
           <span class="spacer"></span>
           <span class="legend" id="gerCount"></span>
         </div>
         <div class="table-wrap"><table id="tblGer"></table></div>
-        <p class="hint" style="color:#cdd3f0">Dica: para editar, clique em "editar" na linha (preenche os campos) e clique em Salvar. O telefone (opcional) entra no texto de WhatsApp.</p>
+        <p class="hint" style="color:#cdd3f0">Aqui ficam so os nomes dos responsaveis. Os telefones sao protegidos (LGPD), ficam fora do site e o envio e resolvido pela ponte. Para incluir ou alterar um numero, use a area protegida (painel do Supabase).</p>
       </div>
 
       <div id="sub-linhas" class="subpanel" style="display:none">
@@ -261,17 +260,17 @@
 
   <footer class="app-footer">
     <span id="modoChip" class="modo-chip">Modo local</span>
-    <span class="ver-chip">v4.5</span>
+    <span class="ver-chip">v4.6</span>
     Fluxo de Ocorrencias
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="assets/data.seed.js?v=4.5"></script>
-  <script src="assets/supabase-config.js?v=4.5"></script>
-  <script src="assets/whatsapp-config.js?v=4.5"></script>
-  <script src="assets/store.js?v=4.5"></script>
-  <script src="assets/store.remote.js?v=4.5"></script>
-  <script src="assets/store.boot.js?v=4.5"></script>
-  <script src="assets/app.js?v=4.5"></script>
+  <script src="assets/data.seed.js?v=4.6"></script>
+  <script src="assets/supabase-config.js?v=4.6"></script>
+  <script src="assets/whatsapp-config.js?v=4.6"></script>
+  <script src="assets/store.js?v=4.6"></script>
+  <script src="assets/store.remote.js?v=4.6"></script>
+  <script src="assets/store.boot.js?v=4.6"></script>
+  <script src="assets/app.js?v=4.6"></script>
 </body>
 </html>
