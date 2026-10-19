@@ -298,18 +298,18 @@
       name: "Monitoramento Rodovias",
       icon: "🛣️",
       description: "Acompanhamento em tempo real das condições das rodovias nas linhas Guanabara: interdições, trânsito e ocorrências, com mapa e notícias atualizadas.",
-      url: "https://newsrodo.streamlit.app/",
-      host: "streamlit.app",
-      status: "online",
+      url: "http://ggbrjocoop-1234:8502/",
+      host: "ggbrjocoop-1234:8502",
+      status: "intranet",
       metric: { id: "m-interdicoes", singular: "interdição", plural: "interdições" }
     },
     {
       name: "Acompanhamento Atrasos",
       icon: "⏱️",
       description: "Painel de acompanhamento de atrasos e anomalias das viagens, aberto diretamente na tela de atrasos para análise imediata da operação.",
-      url: "https://newsrodo.streamlit.app/?view=atrasos",
-      host: "streamlit.app",
-      status: "online",
+      url: "http://ggbrjocoop-1234:8502/?view=atrasos",
+      host: "ggbrjocoop-1234:8502",
+      status: "intranet",
       metric: { id: "m-atrasos", singular: "atraso", plural: "atrasos" }
     },
     {
@@ -383,7 +383,7 @@
     anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImttanR1b2FwbWZnb3h2dHVsaHRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1MzMyMzMsImV4cCI6MjA5NzEwOTIzM30.RpFObETVrakfmCSWXulJ9OWz4TWlm4ESQ7HKaa9kbPM"
   };
   const FEEDS = [
-    { id: "feed-rodo", src: "https://newsrodo.streamlit.app/?view=resumo&embed=true" },
+    { id: "feed-rodo", src: "http://ggbrjocoop-1234:8502/?view=resumo&embed=true" },
     { id: "feed-malha", src: "https://checkmalha.streamlit.app/?view=resumo&embed=true" }
   ];
   const REFRESH_MIN = 5;      // recarrega os iframes a cada 5 minutos
