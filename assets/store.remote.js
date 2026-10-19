@@ -119,7 +119,7 @@
     }
     function mergeStrings(dst, seedArr) { var out = (dst || []).slice(); (seedArr || []).forEach(function (s) { if (out.indexOf(s) < 0) out.push(s); }); return out; }
     function mergeFrota(dst, seedArr) { var out = (dst || []).slice(), have = {}; out.forEach(function (x) { have[String(x.veiculo).toUpperCase()] = 1; }); (seedArr || []).forEach(function (s) { var k = String(s.veiculo).toUpperCase(); if (!have[k]) { out.push(s); have[k] = 1; } }); return out; }
-    function mergeGerentes(dst, seedArr) { var out = (dst || []).slice(), have = {}; out.forEach(function (x) { have[x.nome] = 1; }); (seedArr || []).forEach(function (s) { if (!have[s.nome]) { out.push({ nome: s.nome, telefone: s.telefone || "" }); have[s.nome] = 1; } }); return out; }
+    function mergeGerentes(dst, seedArr) { var out = (dst || []).slice(), have = {}; out.forEach(function (x) { have[x.nome] = 1; }); (seedArr || []).forEach(function (s) { if (!have[s.nome]) { out.push({ nome: s.nome }); have[s.nome] = 1; } }); return out; } // LGPD: so nome no cadastro publico
     function mergeTipo(tipo, seedArr) {
       if (tipo === "gerentes") return mergeGerentes(cad[tipo], seedArr);
       if (tipo === "frota") return mergeFrota(cad[tipo], seedArr);
@@ -268,7 +268,7 @@
       salvarGerente: function (g) {
         if (!g || !g.nome) return;
         var i = -1; for (var k = 0; k < cad.gerentes.length; k++) { if (cad.gerentes[k].nome === g.nome) { i = k; break; } }
-        var item = { nome: g.nome, telefone: g.telefone || "" };
+        var item = { nome: g.nome };   // LGPD: telefone nao vai para o cadastro publico
         if (i >= 0) cad.gerentes[i] = item; else cad.gerentes.push(item);
         pushCad("gerentes"); fire();
       },

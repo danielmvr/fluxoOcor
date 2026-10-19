@@ -1,6 +1,6 @@
-// Dados-semente: Frota.XLS + mapa (KMZ). gerentes = Responsavel Apoio {nome,telefone}; linhas = seletor de Linha.
+// Dados-semente: Frota.XLS + mapa (KMZ). gerentes = Responsavel Apoio {nome} (telefone fica na tabela protegida contatos, LGPD); linhas = seletor de Linha.
 window.SEED = {
- "cadastrosVersao": 8,
+ "cadastrosVersao": 9,
  "geradoEm": "2026-06-15",
  "fonteFrota": "Frota.XLS",
  "frota": [
@@ -4869,204 +4869,154 @@ window.SEED = {
  ],
  "gerentes": [
   {
-   "nome": "Trafego Salvador",
-   "telefone": "(71) 8548-5884"
+   "nome": "Trafego Salvador"
   },
   {
-   "nome": "Joseanderson",
-   "telefone": "(71) 9982-6704"
+   "nome": "Joseanderson"
   },
   {
-   "nome": "Trafego Seabra",
-   "telefone": "(75) 9108-005"
+   "nome": "Trafego Seabra"
   },
   {
-   "nome": "Carlos Passos",
-   "telefone": "(61) 9836-8187"
+   "nome": "Carlos Passos"
   },
   {
-   "nome": "Nathan",
-   "telefone": "(77) 9977-0127"
+   "nome": "Nathan"
   },
   {
-   "nome": "Trafego Barreiras",
-   "telefone": "(77) 9118-6203"
+   "nome": "Trafego Barreiras"
   },
   {
-   "nome": "Marcelo Neto",
-   "telefone": "(62) 8177-8477"
+   "nome": "Marcelo Neto"
   },
   {
-   "nome": "Aurelio",
-   "telefone": "(21) 97192-3498"
+   "nome": "Aurelio"
   },
   {
-   "nome": "Trafego Brasilia",
-   "telefone": "(61) 8104-0310"
+   "nome": "Trafego Brasilia"
   },
   {
-   "nome": "Leonardo",
-   "telefone": "(62) 9159-5637"
+   "nome": "Leonardo"
   },
   {
-   "nome": "Trafego Goiania",
-   "telefone": "(62) 8402-4598"
+   "nome": "Trafego Goiania"
   },
   {
-   "nome": "Nelio",
-   "telefone": "(24) 98828-0341"
+   "nome": "Nelio"
   },
   {
-   "nome": "Trafego Uberaba",
-   "telefone": "(34) 9157-9586"
+   "nome": "Trafego Uberaba"
   },
   {
-   "nome": "Sergio",
-   "telefone": "(13) 99602-8639"
+   "nome": "Sergio"
   },
   {
-   "nome": "Trafego São Paulo",
-   "telefone": "(11) 98609-0139"
+   "nome": "Trafego São Paulo"
   },
   {
-   "nome": "Miguel Nazario",
-   "telefone": "(62) 9603-7510"
+   "nome": "Miguel Nazario"
   },
   {
-   "nome": "Marcelo",
-   "telefone": "(12) 98109-6874"
+   "nome": "Marcelo"
   },
   {
-   "nome": "Vicente",
-   "telefone": "(24) 98156-6373"
+   "nome": "Vicente"
   },
   {
-   "nome": "Trafego Rio de Janeiro",
-   "telefone": "(21) 99479-6581"
+   "nome": "Trafego Rio de Janeiro"
   },
   {
-   "nome": "Marcos Oliveira",
-   "telefone": "(21) 97357-5500"
+   "nome": "Marcos Oliveira"
   },
   {
-   "nome": "Trafego Juiz de Fora",
-   "telefone": "(32) 883-8827"
+   "nome": "Trafego Juiz de Fora"
   },
   {
-   "nome": "Trafego Belo Horizonte",
-   "telefone": "(31) 8674-4414"
+   "nome": "Trafego Belo Horizonte"
   },
   {
-   "nome": "Junior",
-   "telefone": "(31) 8711-5907"
+   "nome": "Junior"
   },
   {
-   "nome": "Thiago Lima",
-   "telefone": "(21) 97671-1116"
+   "nome": "Thiago Lima"
   },
   {
-   "nome": "Bruno Ferro",
-   "telefone": ""
+   "nome": "Bruno Ferro"
   },
   {
-   "nome": "Carlos Henrique",
-   "telefone": ""
+   "nome": "Carlos Henrique"
   },
   {
-   "nome": "Douglas Alvin",
-   "telefone": ""
+   "nome": "Douglas Alvin"
   },
   {
-   "nome": "Elias Cardoso",
-   "telefone": ""
+   "nome": "Elias Cardoso"
   },
   {
-   "nome": "Fábio Galdino",
-   "telefone": ""
+   "nome": "Fábio Galdino"
   },
   {
-   "nome": "Fernando Saiago",
-   "telefone": "(21) 98849-2941"
+   "nome": "Fernando Saiago"
   },
   {
-   "nome": "Nilson Kanashiro",
-   "telefone": "(13) 99619-8355"
+   "nome": "Nilson Kanashiro"
   },
   {
-   "nome": "Emanuelle Oliveira",
-   "telefone": ""
+   "nome": "Emanuelle Oliveira"
   },
   {
-   "nome": "Hugo Diniz",
-   "telefone": ""
+   "nome": "Hugo Diniz"
   },
   {
-   "nome": "Jhony Anderson",
-   "telefone": ""
+   "nome": "Jhony Anderson"
   },
   {
-   "nome": "João Pacheco",
-   "telefone": ""
+   "nome": "João Pacheco"
   },
   {
-   "nome": "Keliton Pereira",
-   "telefone": ""
+   "nome": "Keliton Pereira"
   },
   {
-   "nome": "Leylane Silva",
-   "telefone": ""
+   "nome": "Leylane Silva"
   },
   {
-   "nome": "Leonardo Cunha",
-   "telefone": ""
+   "nome": "Leonardo Cunha"
   },
   {
-   "nome": "Luciano Batalha",
-   "telefone": "(31) 98674-4195"
+   "nome": "Luciano Batalha"
   },
   {
-   "nome": "Cleber Assis",
-   "telefone": ""
+   "nome": "Cleber Assis"
   },
   {
-   "nome": "Patrick Alves",
-   "telefone": ""
+   "nome": "Patrick Alves"
   },
   {
-   "nome": "Gisele de Souza Gomes",
-   "telefone": ""
+   "nome": "Gisele de Souza Gomes"
   },
   {
-   "nome": "Vinícius Madeira",
-   "telefone": "(21) 97028-8026"
+   "nome": "Vinícius Madeira"
   },
   {
-   "nome": "Rafael Driend",
-   "telefone": ""
+   "nome": "Rafael Driend"
   },
   {
-   "nome": "Leticia Pineschi",
-   "telefone": ""
+   "nome": "Leticia Pineschi"
   },
   {
-   "nome": "Andre Ribeiro",
-   "telefone": ""
+   "nome": "Andre Ribeiro"
   },
   {
-   "nome": "Tester",
-   "telefone": "(21) 99866-0063"
+   "nome": "Tester"
   },
   {
-   "nome": "Rodrigo",
-   "telefone": ""
+   "nome": "Rodrigo"
   },
   {
-   "nome": "Mayara",
-   "telefone": ""
+   "nome": "Mayara"
   },
   {
-   "nome": "Josias",
-   "telefone": ""
+   "nome": "Josias"
   }
  ],
  "localidades": [

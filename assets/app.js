@@ -92,7 +92,7 @@
     nomes.forEach(function (nome) {
       nome = (nome || "").trim(); if (!nome) return;
       var chave = nome.toLowerCase(); if (vistos[chave]) return; vistos[chave] = 1;
-      out.push({ numero: telGerente(nome), nome: nome });
+      out.push({ nome: nome });   // so o nome; o numero e resolvido na ponte (agenda protegida, LGPD)
     });
     return out;
   }
@@ -395,7 +395,7 @@
     var gVal = gEl ? gEl.value : "", mVal = mEl ? mEl.value : "", lVal = lEl ? lEl.value : "", fsVal = fsEl ? fsEl.value : "";
     var gers = Store.gerentes().slice().sort(function (a, b) { return (a.nome || "").localeCompare(b.nome || "", "pt-BR", { sensitivity: "base" }); });
     var respOpts = '<option value="">-</option>' + gers.map(function (g) {
-      return '<option value="' + esc(g.nome) + '"' + (g.telefone ? ' style="font-weight:bold"' : '') + '>' + esc(g.nome) + '</option>';
+      return '<option value="' + esc(g.nome) + '">' + esc(g.nome) + '</option>';
     }).join("");
     if (gEl) { gEl.innerHTML = respOpts; gEl.value = gVal; }
     if (mEl) { mEl.innerHTML = respOpts; mEl.value = mVal; }
@@ -440,7 +440,7 @@
   }
 
   /* ---------------- MODAL DETALHE ---------------- */
-  function telGerente(nome) { if (!nome) return ""; var g = Store.gerentes().filter(function (x) { return x.nome === nome; })[0]; return g && g.telefone ? g.telefone : ""; }
+  // telGerente removido (LGPD): o telefone nao fica mais no cliente; a ponte resolve nome -> telefone.
   function whatsApp(o) {
     var emp = empresaDe(o), tipo = tipoCarro(o.carro);
     var DIV = "━━━━━━━━━━━━━━━━";
@@ -467,7 +467,7 @@
     if (o.saidaSocorro) L.push("🚐 Saída do socorro: " + o.saidaSocorro);
     if (o.terminoSocorro) L.push("🏁 Término do socorro: " + o.terminoSocorro + (o.terminoData ? " (" + fmtDateBR(o.terminoData) + ")" : ""));
     L.push("👥 Clientes: " + (o.qtdClientes || "0") + "   📦 Encomendas: " + (o.encomendas || "-") + "   🍽️ Alimentação: " + (o.alimentacaoFornecida || "-"));
-    if (o.gerenteRegional) L.push("👔 Responsável Apoio: " + o.gerenteRegional + (telGerente(o.gerenteRegional) ? " (" + telGerente(o.gerenteRegional) + ")" : ""));
+    if (o.gerenteRegional) L.push("👔 Responsável Apoio: " + o.gerenteRegional);
     if (o.coordenador) L.push("🧑‍💼 Coordenador: " + o.coordenador);
     // ---------- Status / duração ----------
     L.push(DIV);
@@ -593,13 +593,13 @@
 
   function renderGer() {
     var all = Store.gerentes();
-    var rows = all.map(function (g, i) {
-      return "<tr><td>" + esc(g.nome) + "</td><td>" + esc(g.telefone || "") +
-        '</td><td><button class="btn ghost sm" data-action="ger-edit" data-i="' + i + '">editar</button> ' +
+    var rows = all.map(function (g) {
+      return "<tr><td>" + esc(g.nome) + "</td><td>" +
         '<button class="btn wine sm" data-action="ger-del" data-nome="' + esc(g.nome) + '">x</button></td></tr>';
     }).join("");
     var c = $("#gerCount"); if (c) c.textContent = all.length + " responsaveis";
-    $("#tblGer").innerHTML = "<thead><tr><th>Responsavel</th><th>Telefone</th><th></th></tr></thead><tbody>" + rows + "</tbody>";
+    // Telefone nao aparece mais aqui (LGPD): e gerido na area protegida. So nomes no site publico.
+    $("#tblGer").innerHTML = "<thead><tr><th>Responsavel</th><th></th></tr></thead><tbody>" + rows + "</tbody>";
   }
   function renderLinhas() {
     var termo = (($("#buscaLinha") || {}).value || "").toLowerCase();
@@ -761,8 +761,8 @@
     });
     $("#addGer").addEventListener("click", function () {
       var n = $("#ger-nome").value.trim(); if (!n) return;
-      Store.salvarGerente({ nome: n, telefone: $("#ger-tel").value.trim() });
-      $("#ger-nome").value = $("#ger-tel").value = ""; renderGer(); preencherDatalists();
+      Store.salvarGerente({ nome: n });   // telefone e gerido na area protegida (LGPD), nao no site publico
+      $("#ger-nome").value = ""; renderGer(); preencherDatalists();
     });
     $("#addLinha").addEventListener("click", function () {
       var n = $("#linha-nova").value.trim(); if (!n) return;
@@ -871,7 +871,7 @@
         case "loc-del": var L = Store.localidades(); L.splice(i, 1); Store.salvarLocalidades(L); renderLoc(); break;
         case "pa-del": var P = Store.pontosApoio(); P.splice(i, 1); Store.salvarPontosApoio(P); renderPa(); break;
         case "ger-del": Store.removerGerente(t.getAttribute("data-nome")); renderGer(); preencherDatalists(); break;
-        case "ger-edit": var G = Store.gerentes()[i]; if (G) { $("#ger-nome").value = G.nome; $("#ger-tel").value = G.telefone || ""; } break;
+        // ger-edit removido (LGPD): sem campo de telefone no site. Para trocar um nome, exclua e adicione de novo.
         case "linha-del": var LN = Store.linhas(); LN.splice(i, 1); Store.salvarLinhas(LN); renderLinhas(); preencherDatalists(); break;
       }
     });

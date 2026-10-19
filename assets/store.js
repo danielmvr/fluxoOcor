@@ -249,7 +249,7 @@
       if (!g || !g.nome) return;
       var L = db.cadastros.gerentes || [], i = -1;
       for (var k = 0; k < L.length; k++) { if (L[k] && L[k].nome === g.nome) { i = k; break; } }
-      if (i >= 0) L[i] = { nome: g.nome, telefone: g.telefone || "" }; else L.push({ nome: g.nome, telefone: g.telefone || "" });
+      if (i >= 0) L[i] = { nome: g.nome }; else L.push({ nome: g.nome });   // LGPD: so nome
       db.cadastros.gerentes = L; save();
     },
     removerGerente: function (nome) { db.cadastros.gerentes = (db.cadastros.gerentes || []).filter(function (g) { return g.nome !== nome; }); save(); },

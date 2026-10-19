@@ -2,9 +2,10 @@
    Envio automatico para WhatsApp via ponte local (pywhatkit).
    - ativo: liga/desliga o envio ao criar uma ocorrencia.
    - ponteUrl: endereco do servico ponte.py rodando na maquina.
-   O DESTINO e o telefone do "Responsavel Apoio" cadastrado na ocorrencia
-   (Cadastros > Responsavel Apoio). Sem telefone cadastrado, o envio e
-   abortado e a ponte avisa na janela (cmd). Requer ponte.py rodando.
+   O DESTINO e o "Responsavel Apoio" da ocorrencia. Por LGPD, o numero NAO
+   fica mais aqui nem no site: o app manda so o NOME e a ponte resolve o
+   telefone na agenda protegida (Supabase, tabela "contatos"). Sem telefone
+   cadastrado la, o envio e abortado e a ponte avisa na janela (cmd).
    ===================================================================== */
 window.WHATSAPP_CONFIG = {
   ativo: true,
