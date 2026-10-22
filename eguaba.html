@@ -270,8 +270,8 @@
       name: "Check Malha Coordenação",
       icon: "🔎",
       description: "Validação da malha SIGLA: aponta anomalias de programação como viradas curtas e sobreposições, classificadas por criticidade, com relatório para download.",
-      url: "http://192.168.9.200:8521",
-      host: "192.168.9.200:8521",
+      url: "http://192.168.9.200:8520",
+      host: "192.168.9.200:8520",
       status: "intranet",
       tag: "Em validação",
       metric: { id: "m-anomalias", singular: "anomalia", plural: "anomalias" }
@@ -383,7 +383,7 @@
   };
   const FEEDS = [
     { id: "feed-rodo", src: "http://ggbrjocoop-1234:8502/?view=resumo&embed=true" },
-    { id: "feed-malha", src: "http://192.168.9.200:8521/?view=resumo&embed=true" }
+    { id: "feed-malha", src: "http://192.168.9.200:8520/?view=resumo&embed=true" }
   ];
   const REFRESH_MIN = 5;      // recarrega os iframes a cada 5 minutos
   const POLL_OCOR_SEG = 30;   // consulta as ocorrências a cada 30 segundos
