@@ -898,7 +898,10 @@
     showView("painel");
     setInterval(tick, 1000);
     // Fila de envios: detecta se esta maquina tem a ponte e, se tiver, consome a fila.
-    checarPonte(); setInterval(checarPonte, 20000);
-    setInterval(drenarFila, 4000);
+    // Dreno no navegador DESATIVADO (v4.7): quem consome a fila de envios agora e a propria
+    // ponte (Python), que nao congela como aba de navegador em 2o plano. Isso elimina a perda
+    // de envios (ex.: de madrugada) e o descarte silencioso do backlog. O enfileiramento continua igual.
+    // checarPonte(); setInterval(checarPonte, 20000);
+    // setInterval(drenarFila, 4000);
   });
 })();
