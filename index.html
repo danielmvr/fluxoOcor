@@ -6,17 +6,18 @@
   <title>Fluxo de Ocorrencias</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css?v=4.7">
+  <link rel="stylesheet" href="assets/styles.css?v=4.8">
 </head>
 <body>
   <header class="app-header">
-    <img src="logoGB.png?v=4.7" alt="Grupo Guanabara" class="app-logo">
+    <img src="logoGB.png?v=4.8" alt="Grupo Guanabara" class="app-logo">
     <h1 class="brand">FLUXO DE OCORRENCIAS<small>Controle de quebras &amp; socorros</small></h1>
     <nav class="nav">
       <button data-view="painel" class="active">Painel <span class="badge" id="badgeAtivas">0</span></button>
       <button data-view="nova">+ Nova</button>
       <button data-view="cadastros">Cadastros</button>
       <button data-view="historico">Historico</button>
+      <button data-view="sigla">Conferencia SIGLA</button>
     </nav>
   </header>
 
@@ -244,6 +245,34 @@
       </div>
       <div class="table-wrap"><table id="tblHist"></table></div>
     </section>
+    <!-- ===================== CONFERENCIA SIGLA ===================== -->
+    <section id="view-sigla" class="view">
+      <h2 class="section">Conferencia Fluxo x SIGLA</h2>
+      <p class="hint sg-hint">Carregue o relatorio de ocorrencias exportado do SIGLA (TXT). Toda ocorrencia finalizada do Fluxo no periodo precisa estar no SIGLA; registros que existem so no SIGLA nao sao apontados. Casamento por carro, data, servico e hora (tolerancia de 30 min).</p>
+      <div class="toolbar">
+        <label class="btn green sm" style="cursor:pointer">Carregar relatorio SIGLA<input type="file" id="sgArquivo" accept=".txt,.TXT,.tsv,.csv" hidden></label>
+        <span class="sg-info" id="sgInfo"></span>
+      </div>
+      <div class="toolbar">
+        <input type="text" id="sgBusca" placeholder="Buscar carro, servico, linha..." style="max-width:320px">
+        <span class="filtro-emp" id="sgEmpresa">
+          <strong>Empresa:</strong>
+          <label><input type="checkbox" value="UTIL"> Util</label>
+          <label><input type="checkbox" value="SAMP"> Sampaio</label>
+          <label><input type="checkbox" value="RAF"> R. Federal</label>
+          <label><input type="checkbox" value="REX"> Real Expresso</label>
+        </span>
+        <span class="filtro-data">
+          <strong>Data:</strong>
+          <label>De <input type="date" id="sgDe"></label>
+          <label>Ate <input type="date" id="sgAte"></label>
+          <button class="btn ghost sm" id="sgPeriodoRel">Periodo do relatorio</button>
+        </span>
+        <span class="filtro-emp"><label><input type="checkbox" id="sgMostrarOk"> Mostrar OK</label></span>
+      </div>
+      <div class="sg-resumo" id="sgResumo"></div>
+      <div class="table-wrap"><table id="tblSigla"></table></div>
+    </section>
   </main>
 
   <!-- ===================== MODAL DETALHE ===================== -->
@@ -260,17 +289,18 @@
 
   <footer class="app-footer">
     <span id="modoChip" class="modo-chip">Modo local</span>
-    <span class="ver-chip">v4.7</span>
+    <span class="ver-chip">v4.8</span>
     Fluxo de Ocorrencias
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="assets/data.seed.js?v=4.7"></script>
-  <script src="assets/supabase-config.js?v=4.7"></script>
-  <script src="assets/whatsapp-config.js?v=4.7"></script>
-  <script src="assets/store.js?v=4.7"></script>
-  <script src="assets/store.remote.js?v=4.7"></script>
-  <script src="assets/store.boot.js?v=4.7"></script>
-  <script src="assets/app.js?v=4.7"></script>
+  <script src="assets/data.seed.js?v=4.8"></script>
+  <script src="assets/supabase-config.js?v=4.8"></script>
+  <script src="assets/whatsapp-config.js?v=4.8"></script>
+  <script src="assets/store.js?v=4.8"></script>
+  <script src="assets/store.remote.js?v=4.8"></script>
+  <script src="assets/store.boot.js?v=4.8"></script>
+  <script src="assets/app.js?v=4.8"></script>
+  <script src="assets/sigla.js?v=4.8"></script>
 </body>
 </html>
