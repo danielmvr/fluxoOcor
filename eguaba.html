@@ -158,6 +158,13 @@
     background: var(--accent-soft);
   }
   .card h3 { font-size: 17px; font-weight: 700; letter-spacing: -.3px; }
+  .nota {
+    margin-left: 5px;
+    font-size: 9px; font-weight: 500;
+    color: var(--text-3);
+    letter-spacing: 0;
+    vertical-align: baseline;
+  }
   .tag-wip {
     display: inline-block; vertical-align: middle;
     margin-left: 8px; transform: translateY(-1px);
@@ -259,12 +266,12 @@
   const TOOLS = [
     {
       name: "Apoio CCO",
+      nota: "(antigo MyMaps)",
       icon: "🧭",
-      description: "Mapa de apoio operacional com pontos de apoio e garagens, paradas de refeição, bilheterias e terceiros, posição da frota, busca do apoio mais próximo e cadastro próprio. Sucessor do My Maps, com acesso por login.",
+      description: "Mapa de apoio operacional com pontos de apoio e garagens, paradas de refeição, bilheterias e terceiros, posição da frota, busca do apoio mais próximo e cadastro próprio. Acesso por login.",
       url: "https://apoio-cco.onrender.com/",
       host: "apoio-cco.onrender.com",
-      status: "online",
-      tag: "Em validação"
+      status: "online"
     },
     {
       name: "Capacidade S/Carro",
@@ -319,14 +326,6 @@
       host: "ggbrjocoop-1234:8502",
       status: "intranet",
       metric: { id: "m-atrasos", singular: "atraso", plural: "atrasos" }
-    },
-    {
-      name: "My Maps · Apoio CCO",
-      icon: "🗺️",
-      description: "Mapa de apoio da Coordenação do CCO no Google My Maps, com localidades, pontos de apoio e referências geográficas para suporte às operações.",
-      url: "https://www.google.com/maps/d/embed?mid=1V52rGfwJb4mUabpknkHZhwzQWX01A74&ehbc=2E312F",
-      host: "google.com/maps",
-      status: "online"
     }
   ];
 
@@ -345,9 +344,10 @@
     const tag = t.tag
       ? `<span class="tag-wip" title="Ferramenta em processo de validação">${t.tag}</span>`
       : "";
+    const nota = t.nota ? `<span class="nota">${t.nota}</span>` : "";
     const inner = `
       <div class="card-top"><div class="card-icon">${t.icon}</div>${chip}</div>
-      <h3>${t.name}${tag}</h3>
+      <h3>${t.name}${nota}${tag}</h3>
       <p>${t.description}</p>
       <div class="card-footer">${badge}<span class="card-host">${t.host}</span></div>`;
     return t.url
